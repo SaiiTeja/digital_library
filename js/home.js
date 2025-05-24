@@ -212,7 +212,7 @@ function searchBooksSeparate() {
   });
 
   if (delayIndex === 0) {
-    searchDiv.innerHTML = `<p class="text-center text-danger">No books found</p>`;
+    searchDiv.innerHTML = `<p class="text-center text-danger bg-light">No books found</p>`;
   }
 }
 
