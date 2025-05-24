@@ -108,9 +108,114 @@ books.forEach(book => {
     
     container.insertAdjacentHTML("beforeend", card);
 });
+function extra_books() {
+  const extraDiv = document.getElementById("extra");
+  extraDiv.innerHTML = ""; // Clear previous books
 
+  const books = JSON.parse(localStorage.getItem("Normal")) || {}; // Corrected key name
 
+  Object.entries(books).forEach(([name, count], index) => {
+    setTimeout(() => {
+      const bookCard = document.createElement("div");
+      bookCard.className = "col-md-4 book-card";
+      bookCard.innerHTML = `
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">${name}</h5>
+            <p class="card-text">Count: ${count}</p>
+          </div>
+        </div>
+      `;
+      extraDiv.appendChild(bookCard);
+      requestAnimationFrame(() => {
+        bookCard.style.opacity = "1";
+        bookCard.style.transform = "translateY(0)";
+      });
+    }, index * 600); // Delay for smooth effect
+  });
+}
 function getNormal() {
     return JSON.parse(localStorage.getItem('Normal')) || {};
 }
        console.log(getNormal());
+
+let searchTimeouts = [];
+
+function extra_books() {
+  const extraDiv = document.getElementById("extra");
+  extraDiv.innerHTML = "";
+
+  const books = JSON.parse(localStorage.getItem("Normal")) || {};
+
+  let delayIndex = 0;
+  Object.entries(books).forEach(([name, count]) => {
+    setTimeout(() => {
+      const bookCard = document.createElement("div");
+      bookCard.className = "col-md-4 book-card";
+      bookCard.innerHTML = `
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">${name}</h5>
+            <p class="card-text">Count: ${count}</p>
+          </div>
+        </div>
+      `;
+      extraDiv.appendChild(bookCard);
+      requestAnimationFrame(() => {
+        bookCard.style.opacity = "1";
+        bookCard.style.transform = "translateY(0)";
+      });
+    }, delayIndex * 600);
+    delayIndex++;
+  });
+}
+
+function searchBooksSeparate() {
+  const searchInput = document.getElementById("searchInput");
+  const searchValue = searchInput.value.toLowerCase();
+  const searchDiv = document.getElementById("searchResults");
+
+  searchTimeouts.forEach(timeout => clearTimeout(timeout));
+  searchTimeouts = [];
+
+  searchDiv.innerHTML = "";
+
+  if (searchValue === "") {
+    return;
+  }
+
+  const books = JSON.parse(localStorage.getItem("Normal")) || {};
+
+  let delayIndex = 0;
+  Object.entries(books).forEach(([name, count]) => {
+    if (name.toLowerCase().includes(searchValue)) {
+      let timeout = setTimeout(() => {
+        const bookCard = document.createElement("div");
+        bookCard.className = "col-md-4 book-card";
+        bookCard.innerHTML = `
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">${name}</h5>
+              <p class="card-text">Count: ${count}</p>
+            </div>
+          </div>
+        `;
+        searchDiv.appendChild(bookCard);
+        requestAnimationFrame(() => {
+          bookCard.style.opacity = "1";
+          bookCard.style.transform = "translateY(0)";
+        });
+      }, delayIndex * 600);
+      searchTimeouts.push(timeout);
+      delayIndex++;
+    }
+  });
+
+  if (delayIndex === 0) {
+    searchDiv.innerHTML = `<p class="text-center text-danger">No books found</p>`;
+  }
+}
+
+function clearSearchResults() {
+  document.getElementById("searchResults").innerHTML = "";
+}

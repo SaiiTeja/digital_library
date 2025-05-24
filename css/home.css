@@ -1,10 +1,11 @@
 body {
-  width: 100vw; /* Full viewport width */
-  height: 100vh; /* Full viewport height */
-  background-image: url("home.jpg"); /* Add your image */
-  background-size: cover; /* Ensures it fits within the container */
-  background-repeat: no-repeat; /* Prevents repeating */
-  background-position: center; /* Centers the image */
+  width: 100vw;
+  height: 100vh;
+  background-image: url("home.jpg"); 
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-position: center; 
+  background-attachment: fixed;
 }
  .alert-box {
     display: none;
@@ -65,4 +66,62 @@ body {
 .card-body {
     max-height: 200px; 
     overflow-y: auto; 
+}
+
+#navbarNav{
+  font-size: 25px;
+  float: right;
+  margin-left: 650px;
+}
+
+#lib{
+  font-size: 25px;
+  float: right;
+  margin-right: 100px;
+}
+.nav-item{
+  margin-right: 10px;
+}
+.extra{
+  font-size: 28px;
+  text-align: center;
+  color: #FFFFFF;
+  width: 100%;
+  height: 10%;
+  background-image: linear-gradient(45deg, #2E3A59, #3F4E72, #52648D, #6A7FA8, #849BC3);
+}
+.container {
+  margin-top: 20px;
+}
+
+.extra {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  padding: 15px;
+  background-color: #2E3A59; /* Darker background for contrast */
+  color: white;
+  border-radius: 8px; /* Slightly smoother corners */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Added subtle shadow */
+}
+
+.book-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.card {
+  background: linear-gradient(45deg, #2E3A59, #3F4E72, #52648D, #6A7FA8, #849BC3);
+  color: white;
+  padding: 20px; /* More spacious padding */
+  border-radius: 10px; /* Smooth edges */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25); /* Deeper shadow for a premium feel */
+}
+
+/* Ensure the book display section doesn't appear white */
+#extra {
+  background-color: #2E3A59; /* Match the `.extra` background */
+  padding: 20px;
+  border-radius: 8px;
 }
