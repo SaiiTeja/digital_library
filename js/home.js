@@ -110,4 +110,7 @@ books.forEach(book => {
 });
 
 
-       
+function getNormal() {
+    return JSON.parse(localStorage.getItem('Normal')) || {};
+}
+       console.log(getNormal());

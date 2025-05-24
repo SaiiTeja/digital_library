@@ -123,13 +123,17 @@ function addBook() {
 
 }
 
-let delete_book = ()=>{
-    let element = document.getElementById("deleteBook"); 
-    element.style.display = "block";
-}
+let delete_book = () => {
+    let element = document.getElementById("deleteBook");
+    element.style.display = (element.style.display === "block") ? "none" : "block";
+};
 let update_book=()=>{
     let element = document.getElementById("updateBook"); 
-    element.style.display = "block";
+    element.style.display = (element.style.display === "block") ? "none" : "block";
+}
+let delete_normal = () => {
+    let element = document.getElementById("normalBook");
+    element.style.display = (element.style.display === "block") ? "none" : "block";
 }
 function remove_book() {
     let storedBooks = JSON.parse(localStorage.getItem("books")) || [];
@@ -173,3 +177,50 @@ function upgrade(){
         alert("Book not found.");
     }
 }
+function saveBook() {
+    let bookName = document.getElementById("normal_bookName").value.trim();
+    let count = parseInt(document.getElementById("normal_count").value.trim(), 10);
+    
+    if (!bookName || isNaN(count)) {
+        alert("Please enter valid book name and count!");
+        return;
+    }
+
+    let Normal = JSON.parse(localStorage.getItem('Normal')) || {};
+    Normal[bookName] = (Normal[bookName] || 0) + count;
+    localStorage.setItem('Normal', JSON.stringify(Normal));
+    alert(`${bookName} added with count ${count}.`);
+    location.reload();
+}
+let upadate_nrm =()=>{
+    let element = document.getElementById("updatenrm");
+    element.style.display = (element.style.display === "block") ? "none" : "block";
+}
+
+let Ubook = () => {
+    let book_name = document.getElementById("UDbook").value.trim();
+    let books_count = document.getElementById("UDcount").value.trim();
+    let Normal = JSON.parse(localStorage.getItem('Normal')) || {};
+       if (Normal[book_name]) {
+        Normal[book_name] = books_count; // Update the count
+        localStorage.setItem('Normal', JSON.stringify(Normal)); // Save changes
+        alert(`${book_name} count updated to ${books_count}.`);
+    } else {
+        alert(`${book_name} not found.`);
+    }
+    window.location.reload();
+}
+let Dbook = () => {
+    let book_name = document.getElementById("UDbook").value.trim();
+
+    let Normal = JSON.parse(localStorage.getItem('Normal')) || {};
+     if (Normal[book_name]) {
+        delete Normal[book_name]; // Remove the book entry
+        localStorage.setItem('Normal', JSON.stringify(Normal)); // Update localStorage
+        alert(`${book_name} removed successfully.`);
+    } else {
+        alert(`${book_name} not found.`);
+    }
+    window.location.reload();
+}
+
