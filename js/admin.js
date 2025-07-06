@@ -180,18 +180,32 @@ function upgrade(){
 function saveBook() {
     let bookName = document.getElementById("normal_bookName").value.trim();
     let count = parseInt(document.getElementById("normal_count").value.trim(), 10);
+    let author = document.getElementById("normal_author").value.trim();
     
-    if (!bookName || isNaN(count)) {
-        alert("Please enter valid book name and count!");
+    if (!bookName || isNaN(count) || !author) {
+        alert("Please enter valid book name, count, and author name!");
         return;
     }
+    
 
     let Normal = JSON.parse(localStorage.getItem('Normal')) || {};
-    Normal[bookName] = (Normal[bookName] || 0) + count;
+
+    if (Normal[bookName]) {
+        // Book already exists, update count
+        Normal[bookName].count += count;
+    } else {
+        // New book entry
+        Normal[bookName] = {
+            count: count,
+            author: author
+        };
+    }
+
+    console.log(Normal);
     localStorage.setItem('Normal', JSON.stringify(Normal));
-    alert(`${bookName} added with count ${count}.`);
-    location.reload();
+    alert(`${bookName} added/updated with count ${count} and author ${author}.`);
 }
+
 let upadate_nrm =()=>{
     let element = document.getElementById("updatenrm");
     element.style.display = (element.style.display === "block") ? "none" : "block";

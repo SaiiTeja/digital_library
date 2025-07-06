@@ -1,5 +1,4 @@
 
-      
       let savedUser = localStorage.getItem("storedUsername");
         let dict = {
   "y22am3201": "ANDE UMA MAHESWARI",
@@ -123,6 +122,7 @@ function extra_books() {
           <div class="card-body">
             <h5 class="card-title">${name}</h5>
             <p class="card-text">Count: ${count}</p>
+             
           </div>
         </div>
       `;
@@ -140,7 +140,6 @@ function getNormal() {
        console.log(getNormal());
 
 let searchTimeouts = [];
-
 function extra_books() {
   const extraDiv = document.getElementById("extra");
   extraDiv.innerHTML = "";
@@ -148,7 +147,10 @@ function extra_books() {
   const books = JSON.parse(localStorage.getItem("Normal")) || {};
 
   let delayIndex = 0;
-  Object.entries(books).forEach(([name, count]) => {
+  Object.entries(books).forEach(([name, details]) => {
+    let count = details.count;
+    let author = details.author;
+
     setTimeout(() => {
       const bookCard = document.createElement("div");
       bookCard.className = "col-md-4 book-card";
@@ -157,6 +159,7 @@ function extra_books() {
           <div class="card-body">
             <h5 class="card-title">${name}</h5>
             <p class="card-text">Count: ${count}</p>
+            <p class="card-text">Author: ${author}</p>
           </div>
         </div>
       `;
@@ -187,7 +190,10 @@ function searchBooksSeparate() {
   const books = JSON.parse(localStorage.getItem("Normal")) || {};
 
   let delayIndex = 0;
-  Object.entries(books).forEach(([name, count]) => {
+  Object.entries(books).forEach(([name, details]) => {
+    let count = details.count;
+    let author = details.author;
+
     if (name.toLowerCase().includes(searchValue)) {
       let timeout = setTimeout(() => {
         const bookCard = document.createElement("div");
@@ -197,6 +203,7 @@ function searchBooksSeparate() {
             <div class="card-body">
               <h5 class="card-title">${name}</h5>
               <p class="card-text">Count: ${count}</p>
+              <p class="card-text">Author: ${author}</p>
             </div>
           </div>
         `;
@@ -210,12 +217,10 @@ function searchBooksSeparate() {
       delayIndex++;
     }
   });
-
   if (delayIndex === 0) {
     searchDiv.innerHTML = `<p class="text-center text-danger bg-light">No books found</p>`;
   }
 }
-
 function clearSearchResults() {
   document.getElementById("searchResults").innerHTML = "";
 }
